@@ -45,6 +45,7 @@ def play_round_p1(play_round):
 
 
 def play_round_p2(play_round):
+    me = ''
     opponent, result = play_round
     if result == 'X':
         if opponent == 'A':
