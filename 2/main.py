@@ -1,6 +1,3 @@
-with open("input.lst") as f:
-    input = f.read().splitlines()
-
 scores = {
     'A': 1,
     'B': 2,
@@ -13,13 +10,15 @@ scores = {
 
 def get_rounds():
     rounds = []
-    for line in input:
+    with open("input.lst") as f:
+        data = f.read().splitlines()
+    for line in data:
         rounds.append(line.split(' '))
     return rounds
 
 
-def play_round(round):
-    opponent, me = round
+def play_round_p1(play_round):
+    opponent, me = play_round
     score = scores[me]
     if me == 'X':
         if opponent == 'A':
@@ -45,8 +44,8 @@ def play_round(round):
     return score
 
 
-def play_round_p2(round):
-    opponent, result = round
+def play_round_p2(play_round):
+    opponent, result = play_round
     if result == 'X':
         if opponent == 'A':
             me = 'C'
@@ -89,16 +88,19 @@ def play_round_p2(round):
     return score
 
 
-rounds = get_rounds()
+def main():
+    rounds = get_rounds()
+    p1 = 0
+    for play_round in rounds:
+        p1 += play_round_p1(play_round)
+    p2 = 0
+    for play_round in rounds:
+        p2 += play_round_p2(play_round)
 
-p1 = 0
-for round in rounds:
-    p1 += play_round(round)
+    print("** AoC 2022 - Day 2 Solution **")
+    print(f"Part 1: {p1}")
+    print(f"Part 2: {p2}")
 
-p2 = 0
-for round in rounds:
-    p2 += play_round_p2(round)
 
-print("** AoC 2022 - Day 2 Solution **")
-print(f"Part 1: {p1}")
-print(f"Part 2: {p2}")
+if __name__ == "__main__":
+    main()
